@@ -153,6 +153,9 @@ Autocomplete Lookups
 .. versionadded:: 2.3.4
     ``autocomplete_lookup_fields``.
 
+.. note::
+    Please note that this feature is fairly new. It´s well tested, but we still consider it experimental with this version of |grappelli|.
+
 Defining autocomplete lookups is very similar to related lookups::
 
     class MyModel(models.Model):
@@ -212,7 +215,7 @@ The lookup checks for a callable ``related_autocomplete_lookup`` with your model
         return u"%s,%s,%s" % (self.id, self.name, self.category)
 
 .. warning::
-    Autocompletes are under development. Don´t expect the implementation to be stable. Due to a bug in Django 1.3, raw_id_fields (including autocomplete-lookups) are not working with list_editables.
+    Due to a bug in Django 1.3, raw_id_fields (including autocomplete-lookups) are not working with list_editables.
 
 Using TinyMCE
 -------------

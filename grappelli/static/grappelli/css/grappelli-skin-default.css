@@ -1265,7 +1265,7 @@ label {
 
 input, textarea, select, button {
     color: #666;
-    border: 1px solid #bbb;
+    border: 1px solid #ccc;
 /*    border-color: #ccc #ddd #ddd #ccc;*/
     border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;
     outline: 0;
@@ -1655,6 +1655,27 @@ a.related-lookup:hover, a.related-lookup:active {
     background-image: url('../img/icons/icon-related-lookup-hover.png'), -webkit-gradient(linear, left top, left bottom, from(#e1e1e1), to(#eee));
     background-image: url('../img/icons/icon-related-lookup-hover.png'), -o-linear-gradient(top, #e1e1e1, #eee);
 }
+a.related-lookup.m2m:link, a.related-lookup.m2m:visited {
+    background-image: url('../img/icons/icon-related-lookup-m2m.png'), -moz-linear-gradient(top, #ebf2f5, #e1f0f5);
+    background-image: url('../img/icons/icon-related-lookup-m2m.png'), -webkit-gradient(linear, left top, left bottom, from(#ebf2f5), to(#e1f0f5));
+    background-image: url('../img/icons/icon-related-lookup-m2m.png'), -o-linear-gradient(top, #ebf2f5, #e1f0f5);
+}
+a.related-lookup.m2m:hover, a.related-lookup.m2m:active {
+    background-image: url('../img/icons/icon-related-lookup-m2m-hover.png'), -moz-linear-gradient(top, #e1e1e1, #eee);
+    background-image: url('../img/icons/icon-related-lookup-m2m-hover.png'), -webkit-gradient(linear, left top, left bottom, from(#e1e1e1), to(#eee));
+    background-image: url('../img/icons/icon-related-lookup-m2m-hover.png'), -o-linear-gradient(top, #e1e1e1, #eee);
+}
+
+div.autocomplete-wrapper-m2m a.related-lookup:link, div.autocomplete-wrapper-m2m a.related-lookup:visited {
+    background-image: url('../img/icons/icon-related-lookup-m2m.png'), -moz-linear-gradient(top, #ebf2f5, #e1f0f5);
+    background-image: url('../img/icons/icon-related-lookup-m2m.png'), -webkit-gradient(linear, left top, left bottom, from(#ebf2f5), to(#e1f0f5));
+    background-image: url('../img/icons/icon-related-lookup-m2m.png'), -o-linear-gradient(top, #ebf2f5, #e1f0f5);
+}
+div.autocomplete-wrapper-m2m a.related-lookup:hover, div.autocomplete-wrapper-m2m a.related-lookup:active {
+    background-image: url('../img/icons/icon-related-lookup-m2m-hover.png'), -moz-linear-gradient(top, #e1e1e1, #eee);
+    background-image: url('../img/icons/icon-related-lookup-m2m-hover.png'), -webkit-gradient(linear, left top, left bottom, from(#e1e1e1), to(#eee));
+    background-image: url('../img/icons/icon-related-lookup-m2m-hover.png'), -o-linear-gradient(top, #e1e1e1, #eee);
+}
 
 a.related-lookup + strong {
     color: #555;
@@ -1695,10 +1716,15 @@ input:focus + button,
 input:focus + a.fb_show, 
 input:focus + a.related-lookup, 
 input:focus + a.add-another {
-    border-color: #bbb;
-    border-left-color: #ccc;
+    border-color: #999;
+    /*border-left-color: #ccc;*/
 }
-
+/*  Reset the style for focused links in autocompletes as there is an automatically
+    focused (invisible) input which causes the a.related-lookup to be "focused" though it's not */
+div.autocomplete-wrapper-fk input:focus + a.related-lookup, 
+div.autocomplete-wrapper-m2m input:focus + a.related-lookup {
+    border-color: #ccc !important;
+}
 
 
 /*  TABLES
