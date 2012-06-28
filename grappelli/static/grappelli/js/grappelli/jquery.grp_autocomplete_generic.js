@@ -100,7 +100,11 @@
                         dataType: 'json',
                         data: "term=" + request.term + "&app_label=" + grappelli.get_app_label(elem) + "&model_name=" + grappelli.get_model_name(elem) + "&query_string=" + grappelli.get_query_string(elem),
                         beforeSend: function (XMLHttpRequest) {
-                            options.loader.show();
+                            if ($(options.content_type).val()) {
+                                options.loader.show();
+                            } else {
+                                return false;
+                            }
                         },
                         success: function(data){
                             response($.map(data, function(item) {
@@ -123,8 +127,10 @@
                 }
             })
             .data("autocomplete")._renderItem = function(ul,item) {
-                var label = item.value ? "<a>" + item.label + "</a>" : "<span>" + item.label + "</span>";
-                return $("<li></li>").data("item.autocomplete", item).append(label).appendTo(ul);
+                return $("<li></li>")
+                    .data( "item.autocomplete", item )
+                    .append( "<a>" + item.label + " (" + item.value + ")")
+                    .appendTo(ul);
             };
     };
     

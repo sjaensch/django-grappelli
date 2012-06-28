@@ -361,6 +361,14 @@ ul.messagelist li + li {
     border-top: 1px solid #444;
     border-bottom: 1px solid #222;
 }
+.login .module .row:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
 .login .module label {
     color: #eee;
 }
@@ -1248,7 +1256,7 @@ h1 + .tools a.add-handler:hover, h1 + .tools a.add-handler:active {
 ul.errorlist {
     color: #bf3030;
 }
-.error input, .error select, .errors input, .errors select {
+.error input, .error select, .errors input, .errors select, .errors textarea {
     border: 1px solid #bf3030 !important;
 }
 .login ul.errorlist {

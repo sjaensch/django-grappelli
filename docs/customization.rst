@@ -40,13 +40,12 @@ A ModelAdmin example::
             }),
         )
 
-An InlineModelAdmin example::
+With `StackedInlines <https://docs.djangoproject.com/en/dev/ref/contrib/admin/#django.contrib.admin.StackedInline>`_, an additional property ``inline_classes`` is available to define the default collapsible state of the inline items (in contrast to the whole group)::
 
     class NavigationItemInline(admin.StackedInline):
         classes = ('collapse open',)
+        inline_classes = ('collapse open',)
 
-.. note::
-    With Inlines, only the Inline-Group (and not the Inline-items) are affected by the ``classes`` property.
 
 .. _customizationinlinessortables:
 
@@ -150,11 +149,19 @@ For the represantation of an object, we first check for a callable ``related_lab
 Autocomplete Lookups
 --------------------
 
+.. versionchanged:: 2.3.5
+    staticmethod ``autocomplete_search_fields`` is required, ``related_autocomplete_lookup`` has been removed.
 .. versionadded:: 2.3.4
     ``autocomplete_lookup_fields``.
 
-.. note::
-    Please note that this feature is fairly new. It´s well tested, but we still consider it experimental with this version of |grappelli|.
+Add the staticmethod ``autocomplete_search_fields`` to all models you want to search for::
+
+    class MyModel(models.Model):
+        name = models.CharField(u"Name", max_length=50)
+    
+        @staticmethod
+        def autocomplete_search_fields():
+            return ("id__iexact", "name__icontains",)
 
 Defining autocomplete lookups is very similar to related lookups::
 
@@ -202,17 +209,13 @@ If your generic relation points to a model using a custom primary key, you need 
         def id(self):
             return self.cpk
 
-For the represantation of an object, we first check for a callable ``related_label``. If not given, ``__unicode__`` is being used.
-The lookup checks for a callable ``related_autocomplete_lookup`` with your model. If not given, ``__unicode__`` is being used::
+For the represantation of an object, we first check for a callable ``related_label``. If not given, ``__unicode__`` is being used::
 
     def __unicode__(self):
         return u"%s" % self.name
     
     def related_label(self):
         return u"%s (%s)" % (self.name, self.id)
-    
-    def related_autocomplete_lookup(self):
-        return u"%s,%s,%s" % (self.id, self.name, self.category)
 
 .. warning::
     Due to a bug in Django 1.3, raw_id_fields (including autocomplete-lookups) are not working with list_editables.
